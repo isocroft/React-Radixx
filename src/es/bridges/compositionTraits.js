@@ -1,9 +1,22 @@
 
-const withPresentationHooks = (ActionHooks, Prsentation) => {
+const withPresentationHooks = (ActionHooks, PresentationComponent) => {
 
+	class PresentationComposition extends React.Component {
+		
+		constructor(props){
+			super(props)
+		}
+		
+		render(){
+		
+			return <PresentationComponent {...this.props} />
+		}
+	}
+	
+	return PresentationComposition;
 };
 
-const withContainerTraits = ([StoreTrait, ...WrappedComponents]) => {
+const withContainerTraits = ([StoreTrait, ...WrappedPresentationComponents]) => {
 
      class ContainerComposition extends React.Component {
 
@@ -16,15 +29,15 @@ const withContainerTraits = ([StoreTrait, ...WrappedComponents]) => {
 	     
    	render() {
 		
-			let SingleComponentRender = WrappedComponents.length === 1;
+			let SingleComponentRender = WrappedPresentationComponents.length === 1;
 		
-			let Components = WrappedComponents.map(function(WrappedComponent){
+			let Components = WrappedPresentationComponents.map(function(WrappedComponent){
 				
 					let props = {	
 					};
 				
 					if(typeof StoreTrait.getStoreState !== 'function'){
-					   throw new Error();
+					   throw new Error("function [getStoreState] MUST be defined on stores' trait");
 				   	}
 				
 					let state = StoreTrait.getStoreState();
@@ -33,7 +46,7 @@ const withContainerTraits = ([StoreTrait, ...WrappedComponents]) => {
 						
 						if(typeof WrappedComponent.name !== "string"
 							|| WrappedComponent.name.length === 0){
-						   throw new Error();
+						   throw new Error("field [name] MUST be defined as stores' ");
 						}
 						
 						props[WrappedComponent.name] = state[WrappedComponent.name];
@@ -69,11 +82,11 @@ const withContainerTraits = ([StoreTrait, ...WrappedComponents]) => {
 		},
 	     
 	     	shouldComponentUpdate(...args){
-		
+			return StoreTrait.shouldComponentUpdate.apply(this, [...args]);
 		},
 	     
 	     	componentWillRecieveProps(...args){
-		
+			return StoreTrait.componentWillRecieveProps.apply(this, [...args]);
 		}
 	     
      };
@@ -137,4 +150,4 @@ const withRootBindings = (RootComponent, {onDispatch}) => {
 	return RootComposition;
 };
 
-export { withRootBindings, withContainerTraits };
+export { withRootBindings, withContainerTraits, withPresentationHooks };
