@@ -19,7 +19,7 @@ if (env === 'build') {
 
 module.exports = {
 	mode: mode,
-	entry:path.resolve(__dirname, './src/es/bindings//index.js'),
+	entry:path.resolve(__dirname, './src/es/bridges/compositionTraits.js'),
 	output:{
 	    	path: path.resolve(__dirname, './dist'),
 	    	filename:outputFile,
