@@ -2,8 +2,39 @@
   "name":"react-radixx",
   "version":"0.0.1",
   "description":"A slim bridge of easily integrating Radixx with ReactJS",
-  "keywords":[],
+  "keywords":[
+    "react",
+    "reactjs",
+    "flux",
+    "radixx"
+  ],
+  "license": "MIT",
+  "author": { 
+      "name" : "Ifeora Okechukwu", 
+      "email" : "isocroft@gmail.com",
+      "url" : "https://twitter.com/isocroft/"
+  },
+  "contributors":[{ 
+      "name" : "Samuel Omole", 
+      "email" : "samuelomole@gmail.com",
+      "url" : "https://twitter.com/AjeboDeveloper/"
+  }],
+  "homepage": "https://github.com/isocroft/React-Radixx",
+  "repository": "https://github.com/isocroft/React-Radixx.git",
+  "bugs": "https://github.com/isocroft/React-Radixx/issues",
+  "main": "./dist/React-Radixx.umd.js",
+  "unpkg":"./dist/React-Radixx.",
+  "module":"./src/index.js",
+  "peerDependencies": {
+    "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
+    "radixx": "^0.1.0"
+  },
   "scripts":{
-  
-  }
+    "build":"",
+    "test":""
+  },
+  "files": [
+    "dist",
+    "src",
+  ],
 }
