@@ -1,46 +1,96 @@
-const withPresentationTraits = (WrappedComponent, StoreTriat) => {
+
+const withPresentationHooks = (ActionHooks, Prsentation) => {
 
 };
 
-const withContainerTraits = (WrappedComponent, StoreTriat) => {
+const withContainerTraits = ([StoreTrait, ...WrappedComponents]) => {
 
      class ContainerComposition extends React.Component {
 
-           componentWillMount(...args){
+	constructor(props){
+		
+		super(props)
+		
+		this.name = "";
+	}
+	     
+   	render() {
+		
+			let SingleComponentRender = WrappedComponents.length === 1;
+		
+			let Components = WrappedComponents.map(function(WrappedComponent){
+				
+					let props = {	
+					};
+				
+					if(typeof StoreTrait.getStoreState !== 'function'){
+					   throw new Error();
+				   	}
+				
+					let state = StoreTrait.getStoreState();
+				
+					if(!SingleComponentRender){
+						
+						if(typeof WrappedComponent.name !== "string"
+							|| WrappedComponent.name.length === 0){
+						   throw new Error();
+						}
+						
+						props[WrappedComponent.name] = state[WrappedComponent.name];
+					}else{
+						props = state;
+					}
+				
+					return <WrappedComponent {...props} />
+				
+			});
+		
+			return { Components };
 
-                 StoreTrait.componentWillMount.apply(this, [...args]);
-
-	    }
-
-           getDefaultProps(){
-
-                 return StoreTrait.getDefaultProps();
-
-           }
-
-   	     render() {
-      		return (
-        		/*<WrappedComponent
-          			load={this._apply}
-          			{...this.props}
-        		/>*/
-
-			<WrappedComponent
-          			{...this.props}
-        		/>
-		);
-
+	}
      }
+	     
+     let mappingComponentToTrait = {
+	     
+     		componentWillMount(...args){
+                 	return StoreTrait.componentWillMount.apply(this, [...args]);
+	    	},
+	     
+	     	componentWillUnmout(...args){
+			return StoreTrait.componentWillUnmout.apply(this, [...args]);
+		},
+	     
+	     	componentDidUpdate(...args){
+			return StoreTrait.componentDidUpdate.apply(this, [...args]);
+		},
+	     
+	     	componentWillUpdate(...args){
+			return StoreTrait.componentWillUpdate.apply(this, [...args]);
+		},
+	     
+	     	shouldComponentUpdate(...args){
+		
+		},
+	     
+	     	componentWillRecieveProps(...args){
+		
+		}
+	     
+     };
 
-     for(let attribute in StoreTrait){
+     for(let memberName in StoreTrait){
 
-         let method = StoreTrait[attribute];
+         let member = StoreTrait[memberName];
 
-         if((attribute.indexOf('_') + 1) 
-	       && typeof method == "function"){
+         if(typeof member === "function"
+	   	&& (memberName in mappingComponentToTrait)
+	   		&& memberName !== "render"){
 
-              ContainerComposition.prototype[attribute.substring(1)] = method;
-         }
+              ContainerComposition.prototype[memberName] = member;
+         }else{
+	 
+	 	;
+	 }
 
      }
 
@@ -48,8 +98,43 @@ const withContainerTraits = (WrappedComponent, StoreTriat) => {
 
 };
 
-const withRootBindings = (WrappedComponent, {onDispatch}) => {
+const withRootBindings = (RootComponent, {onDispatch}) => {
 
+	class RootComposition extends React.Component {
+		
+		constructor(prop){
+
+			super(props)
+
+			this.createDispatchHatch = function(){
+
+				return function(appstate){
+
+					this.setState({
+
+					});
+
+				}
+			};
+		}
+
+		componentWillMount(){
+
+			onDispatch(
+				this.createDispatchHatch(
+
+				)
+			);
+
+		}
+
+		render(){
+
+			return <RootComponent {...this.props} />
+		}
+	}
+		
+	return RootComposition;
 };
 
-export { withRootBindings, withContainerTraits, withPresentationTraits };
+export { withRootBindings, withContainerTraits };
