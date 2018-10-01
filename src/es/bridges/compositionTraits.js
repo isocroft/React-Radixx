@@ -62,7 +62,9 @@ const withContainerTraits = ([StoreTrait, ...WrappedPresentationComponents]) => 
 
 	}
      }
-	     
+	
+	
+	/* `Arrow functions` don't respect { this } so we have to normalize */ 
      let mappingComponentToTrait = {
 	     
      		componentWillMount(...args){
@@ -96,14 +98,13 @@ const withContainerTraits = ([StoreTrait, ...WrappedPresentationComponents]) => 
          let member = StoreTrait[memberName];
 
          if(typeof member === "function"
-	   	&& (memberName in mappingComponentToTrait)
 	   		&& memberName !== "render"){
-
-              ContainerComposition.prototype[memberName] = member;
-         }else{
-	 
-	 	;
-	 }
+		if((memberName in mappingComponentToTrait)){
+			ContainerComposition.prototype[memberName] = mappingComponentToTrait[memberName];
+		}else{
+              		ContainerComposition.prototype[memberName] = member;
+		}
+         }
 
      }
 
