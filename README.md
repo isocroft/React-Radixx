@@ -1,6 +1,6 @@
 # React-Radixx
 
-A slim bridge libaray for easily integrating Radixx with ReactJS
+A slim bridge library for easily integrating Radixx with ReactJS
 
 ## Installation
 
