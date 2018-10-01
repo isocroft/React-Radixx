@@ -1,7 +1,8 @@
+import { Component } from 'react'
 
 const withPresentationHooks = (ActionHooks, PresentationComponent) => {
 
-	class PresentationComposition extends React.Component {
+	class PresentationComposition extends Component {
 		
 		constructor(props){
 			super(props)
@@ -18,7 +19,7 @@ const withPresentationHooks = (ActionHooks, PresentationComponent) => {
 
 const withContainerTraits = ([StoreTrait, ...WrappedPresentationComponents]) => {
 
-     class ContainerComposition extends React.Component {
+     class ContainerComposition extends Component {
 
 	constructor(props){
 		
@@ -114,7 +115,7 @@ const withContainerTraits = ([StoreTrait, ...WrappedPresentationComponents]) => 
 
 const withRootBindings = (RootComponent, {onDispatch}) => {
 
-	class RootComposition extends React.Component {
+	class RootComposition extends Component {
 		
 		constructor(prop){
 
