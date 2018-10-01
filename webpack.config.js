@@ -19,7 +19,7 @@ if (env === 'build') {
 
 module.exports = {
 	mode: mode,
-	entry:path.resolve(__dirname, './src/es/bridges/compositionTraits.js'),
+	entry:path.resolve(__dirname, './src/es/compositionBridges.js'),
 	output:{
 	    	path: path.resolve(__dirname, './dist'),
 	    	filename:outputFile,
@@ -30,9 +30,9 @@ module.exports = {
 	module:{
 		rules: [
 		      {
-					test: /\.js$/,
-					loader: 'babel-loader',
-					exclude: /node_modules/
+			test: /\.js$/,
+			loader: 'babel-loader',
+			exclude: /node_modules/
 		      }/*,
 		      {
 			test: /\.js$/,
