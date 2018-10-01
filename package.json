@@ -1,7 +1,7 @@
 {
   "name":"react-radixx",
   "version":"0.0.1",
-  "description":"A slim bridge of easily integrating Radixx with ReactJS",
+  "description":"A slim bridge library of easily integrating Radixx with ReactJS",
   "keywords":[
     "react",
     "reactjs",
