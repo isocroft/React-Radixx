@@ -25,6 +25,27 @@
   "main": "./dist/react-radixx.cjs.js",
   "unpkg":"./dist/react-radixx.umd.js",
   "module":"./src/es/compositionBridges.js",
+  "devDependencies": {
+    "jasmine-core": "^2.2.0",
+    "karma": "^2.0.0",
+    "karma-firefox-launcher": "^1.1.0",
+    "karma-jasmine": "^1.1.1",
+    "benchmark": "~1.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.3",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "eslint": "^5.0.1",
+    "eslint-loader": "^2.0.0",
+    "uglifyjs-webpack-plugin": "^1.2.7",
+    "webpack": "^4.12.2",
+    "webpack-cli": "^3.0.8",
+    "yargs": "^10.0.3"
+  },
+  "dependencies": {},
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
     "radixx": "^0.1.0"
