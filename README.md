@@ -10,3 +10,199 @@ A slim bridge of easily integrating Radixx with ReactJS
     
     yarn add react-radixx
 ```
+
+## Getting Started
+
+> ./actions/movieCharaterAction.js
+
+```js
+
+```
+
+> ./traits/movieCharaterTrait.js
+
+```js
+
+import { makeStore, Helpers  } from 'radixx'
+import { axios } from 'axios'
+
+const store = makeStore('moviec', function(action, state, prevState){
+
+    movie_chars = state;
+
+    switch(action.actionType){
+        case "ADD_MOVIE_CHAR":
+            movie_chars.push(action.actionData);
+        break;
+    }
+    
+    return movie_chars;
+}, []);
+
+const MovieCharaterTrait = store.makeTrait(function(store){
+
+    let listener = function(){
+    
+        console.log("store data changed!");
+    };
+    
+    let oldState = null;
+
+    return {
+    
+        shouldComponentUpdate:(nextProps, nextState) => {
+    
+            return (
+              ! Helpers.isEqual(oldState, this.getStoreState()) 
+              || ! Helpers.isEqual(this.state, nextState)
+            );
+        },
+    
+        componentWillUnmount:() => {
+           
+            store.unsetChangeListener(
+                listener
+            );
+        },
+				
+        componentDidMount: () => {
+					
+            store.setChangeListener(
+                listener
+            );
+
+        },
+        
+        _post:(url, data) => {
+
+            return axios.post(
+                url, 
+                data
+            );
+
+        },
+        
+        getStoreState:() => {
+            
+            oldState = store.getState();
+            
+            return oldState;
+        }
+    };
+    
+});
+
+export { MovieCharaterTrait }
+
+```
+
+>
+
+```js
+
+import { Component } from 'react'
+import { Helpers } from 'radixx'
+import { withContainerTraits } from 'react-redux'
+import { MovieCharaterTrait } from './traits/movieCharaterTrait'
+import { MovieCharacterAction } from './actions/movieCharaterAction'
+
+class MovieContainer extends Component {
+
+    constructor(props){
+    
+        super(props)
+        
+        this.state = {
+            addButtonDisabled:false
+        };
+    }
+    
+    shouldComponentUpdate(nextProps, nextState){
+        return (
+                ! Helpers.isEqual(this.props, nextProps) ||
+                ! Helpers.isEqual(this.state, nextState)
+        );
+    }
+    
+    onClick(event){
+        
+        MovieCharacterAction.addMovieChar();
+    }
+}
+
+return withContainerTraits(
+    MovieCharaterTrait, 
+    MovieContainer
+);
+
+```
+
+> ./App.js
+
+```js
+
+import { Component } from 'react'
+import { attachMiddleware } from 'radixx'
+
+attachMidleware(function(next, action, previousStateObj){
+        
+        console.log("BEFORE DISPATCH: ", previousStateObj);
+        
+        let nextStateObj = next(
+            action,
+            previousStateObj
+        );
+        
+        console.log("AFTER DISPATCH: ", nextStateObj);
+});
+
+class App extends Component {
+
+    constructor(prop){
+        super(props)
+        
+        this.state = {
+            isLoading:true
+        }
+    }
+    
+    componentDidMount(){
+    
+        this.isLoading = (document.readyState !== "complete");
+    }
+}
+
+export App;
+
+```
+
+> ./index.js
+
+```js
+
+import { withRootBindings } from 'react-radixx'
+import { render } from 'react-dom'
+import { onDispatch, configure, onShutDown } from 'radixx'
+import App from './components/App'
+
+configure({
+    runtime:{
+        spaMode:true,
+        shutDownHref:"/logout"
+    }
+});
+
+onShutDown(function(appState){
+
+});
+
+render(
+    withRootBindings(App, { onDispatch }),
+    document.body.lastElementChild 
+);
+
+```
+
+## License
+
+MIT
