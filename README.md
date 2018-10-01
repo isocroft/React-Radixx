@@ -1,6 +1,6 @@
 # React-Radixx
 
-A slim bridge of easily integrating Radixx with ReactJS
+A slim bridge libaray of easily integrating Radixx with ReactJS
 
 ## Installation
 
@@ -16,6 +16,17 @@ A slim bridge of easily integrating Radixx with ReactJS
 > ./actions/movieCharaterAction.js
 
 ```js
+
+import { makeActionCreators, Payload  } from 'radixx'
+
+const action = makeActionCreators({
+	'addMovieChar':{
+		type:"ADD_MOVIE_CHAR",
+		actionDefinition: Payload.type.object
+	}
+});
+
+export { action }
 
 ```
 
@@ -96,7 +107,7 @@ export { MovieCharaterTrait }
 
 ```
 
->
+> > ./components/movieCharater.js
 
 ```js
 
@@ -106,7 +117,7 @@ import { withContainerTraits } from 'react-redux'
 import { MovieCharaterTrait } from './traits/movieCharaterTrait'
 import { MovieCharacterAction } from './actions/movieCharaterAction'
 
-class MovieContainer extends Component {
+class MovieCharacterClass extends Component {
 
     constructor(props){
     
@@ -130,10 +141,13 @@ class MovieContainer extends Component {
     }
 }
 
-return withContainerTraits(
+const MovieCharacter = withContainerTraits(
     MovieCharaterTrait, 
-    MovieContainer
+    MovieCharacterClass
 );
+
+
+return { MovieCharacter }
 
 ```
 
@@ -143,6 +157,7 @@ return withContainerTraits(
 
 import { Component } from 'react'
 import { attachMiddleware } from 'radixx'
+import { MovieCharacter } from './components/movieCharater'
 
 attachMidleware(function(next, action, previousStateObj){
         
@@ -170,6 +185,12 @@ class App extends Component {
     
         this.isLoading = (document.readyState !== "complete");
     }
+    
+    render(){
+    
+    	return <MovieCharacter {...this.props} />
+    }
+    
 }
 
 export App;
@@ -197,7 +218,10 @@ onShutDown(function(appState){
 });
 
 render(
-    withRootBindings(App, { onDispatch }),
+    withRootBindings(
+    	App, 
+    	{ onDispatch }
+    ),
     document.body.lastElementChild 
 );
 
