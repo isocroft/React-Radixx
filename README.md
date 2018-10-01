@@ -1,6 +1,6 @@
 # React-Radixx
 
-A slim bridge libaray of easily integrating Radixx with ReactJS
+A slim bridge libaray for easily integrating Radixx with ReactJS
 
 ## Installation
 
@@ -107,7 +107,7 @@ export { MovieCharaterTrait }
 
 ```
 
-> > ./components/movieCharater.js
+> ./components/movieCharater.js
 
 ```js
 
