@@ -24,7 +24,7 @@
   "bugs": "https://github.com/isocroft/React-Radixx/issues",
   "main": "./dist/react-radixx.cjs.js",
   "unpkg":"./dist/react-radixx.umd.js",
-  "module":"./src/es/bridges/compositionTraits.js",
+  "module":"./src/es/compositionBridges.js",
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
     "radixx": "^0.1.0"
