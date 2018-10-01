@@ -22,9 +22,9 @@
   "homepage": "https://github.com/isocroft/React-Radixx",
   "repository": "https://github.com/isocroft/React-Radixx.git",
   "bugs": "https://github.com/isocroft/React-Radixx/issues",
-  "main": "./dist/React-Radixx.umd.js",
-  "unpkg":"./dist/React-Radixx.",
-  "module":"./src/index.js",
+  "main": "./dist/react-radixx.cjs.js",
+  "unpkg":"./dist/react-radixx.umd.js",
+  "module":"./src/es/bridges/compositionTraits.js",
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
     "radixx": "^0.1.0"
