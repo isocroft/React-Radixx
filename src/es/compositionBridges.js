@@ -85,10 +85,10 @@ const withContainerTraits = (StoreTrait, ...WrappedPresentationComponents) => {
 	   		&& memberName !== "render"){
 		if((memberName in mappingComponentToTrait)){
 			ContainerComposition.prototype[memberName] = mappingComponentToTrait[memberName];
-		}else{
-              		ContainerComposition.prototype[memberName] = member;
 		}
-         }
+         }else{
+	 	ContainerComposition.prototype[memberName] = member;
+	 }
 
      }
 
