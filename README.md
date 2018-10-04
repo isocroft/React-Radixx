@@ -19,14 +19,14 @@ A slim bridge library for easily integrating Radixx with ReactJS
 
 import { makeActionCreators, Payload  } from 'radixx'
 
-const action = makeActionCreators({
+const MovieCharacterAction = makeActionCreators({
 	'addMovieChar':{
 		type:"ADD_MOVIE_CHAR",
 		actionDefinition: Payload.type.object
 	}
 });
 
-export { action }
+export { MovieCharacterAction }
 
 ```
 
