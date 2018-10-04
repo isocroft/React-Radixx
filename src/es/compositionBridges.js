@@ -1,23 +1,6 @@
 import { Component } from 'react'
 
-const withPresentationHooks = (ActionHooks, PresentationComponent) => {
-
-	class PresentationComposition extends Component {
-		
-		constructor(props){
-			super(props)
-		}
-		
-		render(){
-		
-			return <PresentationComponent {...this.props} />
-		}
-	}
-	
-	return PresentationComposition;
-};
-
-const withContainerTraits = ([StoreTrait, ...WrappedPresentationComponents]) => {
+const withContainerTraits = (StoreTrait, ...WrappedPresentationComponents) => {
 
      class ContainerComposition extends Component {
 
