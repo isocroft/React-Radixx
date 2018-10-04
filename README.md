@@ -37,7 +37,7 @@ export { action }
 import { makeStore, Helpers  } from 'radixx'
 import { axios } from 'axios'
 
-const store = makeStore('moviec', function(action, state, prevState){
+const store = makeStore('moviec', function(action, state){
 
     movie_chars = state;
 
