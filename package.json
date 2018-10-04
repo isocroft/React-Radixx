@@ -22,8 +22,8 @@
   "homepage": "https://github.com/isocroft/React-Radixx",
   "repository": "https://github.com/isocroft/React-Radixx.git",
   "bugs": "https://github.com/isocroft/React-Radixx/issues",
-  "main": "./dist/react-radixx.cjs.js",
-  "unpkg":"./dist/react-radixx.umd.js",
+  "main": "./dist/react-radixx.umd.js",
+  "unpkg":"./dist/react-radixx.umd.min.js",
   "module":"./src/es/compositionBridges.js",
   "devDependencies": {
     "jasmine-core": "^2.2.0",
