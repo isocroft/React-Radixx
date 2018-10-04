@@ -52,16 +52,16 @@ const store = makeStore('moviec', function(action, state){
 
 const MovieCharaterTrait = store.makeTrait(function(store){
 
-    let listener = function(){
+    let listener = function(actionType, actionKey){
     
-        console.log("store data changed!");
+        console.log(`store data changed for ${actionType}`);
     };
     
     let oldState = null;
 
     return {
     
-        shouldComponentUpdate:(nextProps, nextState) => {
+        shouldComponentUpdate(nextProps, nextState){
     
             return (
               ! Helpers.isEqual(oldState, this.getStoreState()) 
@@ -69,14 +69,14 @@ const MovieCharaterTrait = store.makeTrait(function(store){
             );
         },
     
-        componentWillUnmount:() => {
+        componentWillUnmount(){
            
             store.unsetChangeListener(
                 listener
             );
         },
 				
-        componentDidMount: () => {
+        componentDidMount(){
 					
             store.setChangeListener(
                 listener
@@ -84,7 +84,7 @@ const MovieCharaterTrait = store.makeTrait(function(store){
 
         },
         
-        _post:(url, data) => {
+        _post(url, data){
 
             return axios.post(
                 url, 
@@ -93,7 +93,7 @@ const MovieCharaterTrait = store.makeTrait(function(store){
 
         },
         
-        getStoreState:() => {
+        getStoreState(){
             
             oldState = store.getState();
             
